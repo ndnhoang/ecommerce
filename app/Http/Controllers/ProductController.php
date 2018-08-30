@@ -144,13 +144,35 @@ class ProductController extends Controller
 
     public function deleteProductImage($id = null)
     {
+//        get product image name
+        $productDetails = Product::where(['id' => $id])->first();
+        $productImage = $productDetails->image;
+
+//        get product image path
+        $large_image_path = "images/backend_images/products/large/";
+        $medium_image_path = "images/backend_images/products/medium/";
+        $small_image_path = "images/backend_images/products/small/";
+
+//        delete product image if exists in Folder
+        if (file_exists($large_image_path.$productImage)) {
+            unlink($large_image_path.$productImage);
+        }
+        if (file_exists($medium_image_path.$productImage)) {
+            unlink($medium_image_path.$productImage);
+        }
+        if (file_exists($small_image_path.$productImage)) {
+            unlink($small_image_path.$productImage);
+        }
+
+//        delete product image from Product table
         Product::where(['id' => $id])->update(['image' => '']);
+
         return redirect()->back()->with('flash_message_success', 'Product Image has been deleted successfully');
     }
 
     public function addAttributes(Request $request, $id = null)
     {
-        $productDetails = Product::where(['id' => $id])->first();
+        $productDetails = Product::with('attributes')->where(['id' => $id])->first();
 
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -169,5 +191,60 @@ class ProductController extends Controller
         }
 
         return view('admin.products.add_attributes')->with(compact('productDetails'));
+    }
+
+    public function deleteAttribute($id = null)
+    {
+        ProductsAttribute::where(['id' => $id])->delete();
+        return redirect()->back()->with('flash_message_success', 'Attribute has been deleted successfully');
+    }
+
+    public function listProductsByCategory($id = null)
+    {
+//        show 404 page if category url does not exist
+        $countCategory = Category::where(['id' => $id])->count();
+        if ($countCategory == 0) {
+            abort(404);
+        }
+
+        $categories = Category::with('categories')->where(['parent_id' => 0])->get();
+        $categoryDetails = Category::where(['id' => $id])->first();
+        if ($categoryDetails->status == 0) {
+            abort(404);
+        }
+
+        if ($categoryDetails->parent_id == 0) {
+//            if url is main category url
+            $subCategories = Category::where(['parent_id' => $id])->get();
+            $category_ids = array();
+            foreach ($subCategories as $subCategory) {
+                $category_ids[] = $subCategory->id;
+            }
+            $category_ids[] = $id;
+            $products = Product::whereIn('category_id', $category_ids)->get();
+        } else {
+//            if url is sub category url
+            $products = Product::where(['category_id' => $id])->get();
+        }
+
+        return view('products.listing')->with(compact('categoryDetails', 'products', 'categories'));
+    }
+
+    public function showProductDetails($id = null)
+    {
+        $productDetails = Product::with('attributes')->where(['id' => $id])->first();
+
+
+        $categories = Category::with('categories')->where(['parent_id' => 0])->get();
+
+        return view('products.details')->with(compact('productDetails', 'categories'));
+    }
+
+    public function getProductPrice(Request $request)
+    {
+        $data = $request->all();
+        $productArr = explode("-", $data['size']);
+        $productArr = ProductsAttribute::where(['product_id' => $productArr[0], 'size' => $productArr[1]])->first();
+        echo $productArr->price;
     }
 }

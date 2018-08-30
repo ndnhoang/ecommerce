@@ -50,7 +50,6 @@ hr{ border-top-color:#dadada;}
 	height: 77px;
 	position: relative;
 	width: 100%;
-	z-index: -9;
 }
 #header h1 {
 	background: url("/images/logo.png") no-repeat scroll 0 0 transparent;

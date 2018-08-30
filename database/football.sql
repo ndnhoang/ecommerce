@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 29, 2018 at 05:24 PM
+-- Generation Time: Aug 30, 2018 at 05:56 PM
 -- Server version: 5.7.22-0ubuntu0.17.10.1
 -- PHP Version: 7.1.17-0ubuntu0.17.10.1
 
@@ -45,9 +45,13 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `parent_id`, `name`, `description`, `url`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 0, 'T-Shirts', 'T-Shirts category', 't-shirts', 1, NULL, '2018-08-28 02:33:22', '2018-08-28 02:33:22'),
 (2, 0, 'Shoes', 'Shoes category', 'shoes', 1, NULL, '2018-08-28 02:33:45', '2018-08-28 02:33:45'),
-(3, 1, 'Casual T-Shirts', 'Casual T-Shirts category', 'casual-t-shirts', 1, NULL, '2018-08-28 02:42:06', '2018-08-28 02:42:06'),
+(3, 1, 'Casual T-Shirts', 'Casual T-Shirts category', 'casual-t-shirts', 1, NULL, '2018-08-28 02:42:06', '2018-08-30 02:46:56'),
 (4, 2, 'Casual Shoes', 'Casual Shoes category', 'casual-shoes', 1, NULL, '2018-08-28 02:48:16', '2018-08-28 02:48:16'),
-(5, 2, 'Sports Shoes', 'Sports Shoes category', 'sports-shoes', 1, NULL, '2018-08-28 02:49:53', '2018-08-28 02:51:21');
+(5, 2, 'Sports Shoes', 'Sports Shoes category', 'sports-shoes', 1, NULL, '2018-08-28 02:49:53', '2018-08-28 02:51:21'),
+(6, 0, 'Mens', 'Mens category', 'mens', 1, NULL, '2018-08-29 21:41:39', '2018-08-29 21:41:39'),
+(7, 0, 'Womens', 'Womens category', 'womens', 0, NULL, '2018-08-29 21:41:55', '2018-08-30 01:34:10'),
+(8, 0, 'Kids', 'Kids category', 'kids', 1, NULL, '2018-08-30 01:22:45', '2018-08-30 01:22:45'),
+(9, 0, 'Blazers', 'Blazers category', 'blazers', 1, NULL, '2018-08-30 01:23:22', '2018-08-30 01:29:28');
 
 -- --------------------------------------------------------
 
@@ -110,7 +114,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `category_id`, `product_name`, `product_code`, `product_color`, `description`, `price`, `image`, `created_at`, `updated_at`) VALUES
 (5, 3, 'Green Casual T-Shirt', 'GTS001', 'Green', 'Green T-Shirt product', 1500.00, '52466.png', '2018-08-28 20:07:49', '2018-08-28 21:29:10'),
-(6, 3, 'Navi Blue T-Shirt', 'NTS001', 'Navi Blue', 'Navi Blue T-Shirt product', 2200.00, '57337.jpg', '2018-08-28 20:28:21', '2018-08-28 21:54:09');
+(6, 3, 'Navi Blue T-Shirt', 'NTS001', 'Navi Blue', 'Navi Blue T-Shirt product', 2200.00, '57337.jpg', '2018-08-28 20:28:21', '2018-08-28 21:54:09'),
+(7, 5, 'Blue Sport Shoes', 'BSS001', 'Blue', '', 500.00, '92505.jpg', '2018-08-29 23:00:44', '2018-08-30 02:42:56');
 
 -- --------------------------------------------------------
 
@@ -134,9 +139,9 @@ CREATE TABLE `products_attributes` (
 --
 
 INSERT INTO `products_attributes` (`id`, `product_id`, `sku`, `size`, `price`, `stock`, `created_at`, `updated_at`) VALUES
-(1, 5, 'GTS001-S', 'Small', 1000.00, 100, '2018-08-29 03:22:19', '2018-08-29 03:22:19'),
-(2, 5, 'GTS001-M', 'Medium', 1500.00, 180, '2018-08-29 03:22:19', '2018-08-29 03:22:19'),
-(3, 5, 'GTS001-L', 'Large', 2000.00, 75, '2018-08-29 03:22:19', '2018-08-29 03:22:19');
+(4, 5, 'GTS001-S', 'Small', 1000.00, 100, '2018-08-29 19:32:32', '2018-08-29 19:32:32'),
+(5, 5, 'GTS001-M', 'Medium', 1200.00, 200, '2018-08-29 19:32:32', '2018-08-29 19:32:32'),
+(6, 5, 'GTS001-L', 'Large', 1500.00, 80, '2018-08-29 19:32:32', '2018-08-29 19:32:32');
 
 -- --------------------------------------------------------
 
@@ -211,7 +216,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -221,12 +226,12 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `products_attributes`
 --
 ALTER TABLE `products_attributes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users`
 --

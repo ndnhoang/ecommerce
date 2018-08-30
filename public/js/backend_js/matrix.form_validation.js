@@ -162,6 +162,24 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '.del-attribute', function (e) {
+        var id = $(this).attr('rel');
+        var delete_func = $(this).attr('rel1');
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this attribute!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                window.location.href = "/admin/" + delete_func + "/" + id;
+            } else {
+                swal("This attribute is safe!");
+            }
+        });
+    });
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 	
 	$('select').select2();
@@ -170,7 +188,7 @@ $(document).ready(function(){
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input type="text" name="sku[]" id="sku" placeholder="SKU" style="width: 120px;" /><input type="text" name="size[]" id="size" placeholder="Size" style="width: 120px;" /><input type="text" name="price[]" id="price" placeholder="Price" style="width: 120px;" /><input type="text" name="stock[]" id="stock" placeholder="Stock" style="width: 120px;" /><a href="javascript:void(0);" class="remove_button">Remove</a></div>'; //New input field html
+        var fieldHTML = '<div><input type="text" name="sku[]" id="sku" placeholder="SKU" style="width: 120px;" required /><input type="text" name="size[]" id="size" placeholder="Size" style="width: 120px;" required /><input type="text" name="price[]" id="price" placeholder="Price" style="width: 120px;" required /><input type="text" name="stock[]" id="stock" placeholder="Stock" style="width: 120px;" required /><a href="javascript:void(0);" class="remove_button">Remove</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
 
         //Once add button is clicked

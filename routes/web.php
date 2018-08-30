@@ -41,7 +41,16 @@ Route::group(['middleware' => ['auth']], function () {
 
 //    Products Attribute
     Route::match(['get', 'post'], '/admin/add-attributes/{id}', 'ProductController@addAttributes');
+    Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
 });
+
+//Front Route
+
+Route::get('/', 'IndexController@index');
+Route::get('/category/{id}', 'ProductController@listProductsByCategory');
+Route::get('/product/{id}', 'ProductController@showProductDetails');
+//get product price by size
+Route::get('/get-price', 'ProductController@getProductPrice');
 
 Auth::routes();
 
