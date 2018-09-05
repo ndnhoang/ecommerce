@@ -38,10 +38,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'], '/admin/edit-product/{id}', 'ProductController@editProduct');
     Route::get('/admin/delete-product-image/{id}', 'ProductController@deleteProductImage');
     Route::get('/admin/delete-product/{id}', 'ProductController@deleteProduct');
+    Route::match(['get', 'post'], '/admin/add-images/{id}', 'ProductController@addImages');
+    Route::get('/admin/delete-images/{id}', 'ProductController@deleteImages');
+
 
 //    Products Attribute
     Route::match(['get', 'post'], '/admin/add-attributes/{id}', 'ProductController@addAttributes');
     Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
+    Route::match(['get', 'post'], '/admin/edit-attributes/{id}', 'ProductController@editAttributes');
 });
 
 //Front Route
@@ -51,6 +55,11 @@ Route::get('/category/{id}', 'ProductController@listProductsByCategory');
 Route::get('/product/{id}', 'ProductController@showProductDetails');
 //get product price by size
 Route::get('/get-price', 'ProductController@getProductPrice');
+//cart
+Route::match(['get', 'post'], '/add-cart', 'ProductController@addCart');
+Route::match(['get', 'post'], '/cart', 'ProductController@showCart');
+Route::get('/cart/delete-product/{id}', 'ProductController@deleteCartProduct');
+Route::get('/cart/update-quantity/{id}/{quantity}', 'ProductController@updateCartQuantity');
 
 Auth::routes();
 

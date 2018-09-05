@@ -59,6 +59,7 @@
                                             <a href="#prodDetails_{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini">View</a>
                                             <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a>
                                             <a href="{{ url('/admin/add-attributes/'.$product->id) }}" class="btn btn-success btn-mini">Add</a>
+                                            <a href="{{ url('/admin/add-images/'.$product->id) }}" class="btn btn-info btn-mini">Add</a>
                                             <a {{--href="{{ url('/admin/delete-product/'.$product->id) }}"--}} href="javascript:" class="btn btn-danger btn-mini del-product" rel="{{ $product->id }}" rel1="delete-product">Delete</a></td>
                                     </tr>
                                     <div id="prodDetails_{{ $product->id }}" class="modal hide">

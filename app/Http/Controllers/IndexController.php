@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function index()
     {
 //        get all products
-        $products = Product::orderBy('id', 'desc')->get();
+        $products = Product::orderBy('id', 'desc')->where('status', 1)->get();
 
 //        get all categories
         $categories = Category::with('categories')->where(['parent_id' => 0])->get();

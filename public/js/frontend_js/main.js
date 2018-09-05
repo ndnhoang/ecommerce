@@ -38,12 +38,60 @@ $(document).ready(function () {
                 url:'/get-price',
                 data:{size:value},
                 success:function (data) {
-                    $('#get_price').text("$" + data);
+                    var arr = data.split('#');
+                    $('#get_price').text("$" + arr[0]);
+                    $('#price').val(arr[0]);
+                    if (arr[1] == 0) {
+                        $('#cart_button').hide();
+                        $('#status_stock').text(' Out of Stock');
+                    } else {
+                        $('#cart_button').show();
+                        $('#status_stock').text(' In Stock');
+                    }
                 },
                 error:function () {
                     alert('Error');
                 }
             });
+        }
+    });
+
+//    Replace main image with alternate image
+    $('.change-image').click(function (e) {
+        e.preventDefault();
+        var img = $(this).find('img').attr('src');
+        $('#main-image').attr('src', img);
+    })
+});
+
+$(document).ready(function () {
+    // Instantiate EasyZoom instances
+    var $easyzoom = $('.easyzoom').easyZoom();
+
+    // Setup thumbnails example
+    var api1 = $easyzoom.filter('.easyzoom--with-thumbnails').data('easyZoom');
+
+    $('.thumbnails').on('click', 'a', function(e) {
+        var $this = $(this);
+
+        e.preventDefault();
+
+        // Use EasyZoom's `swap` method
+        api1.swap($this.data('standard'), $this.attr('href'));
+    });
+
+    // Setup toggles example
+    var api2 = $easyzoom.filter('.easyzoom--with-toggle').data('easyZoom');
+
+    $('.toggle').on('click', function() {
+        var $this = $(this);
+
+        if ($this.data("active") === true) {
+            $this.text("Switch on").data("active", false);
+            api2.teardown();
+        } else {
+            $this.text("Switch off").data("active", true);
+            api2._init();
         }
     });
 });
