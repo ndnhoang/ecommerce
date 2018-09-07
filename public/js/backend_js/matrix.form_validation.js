@@ -198,6 +198,24 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '.del-coupon', function (e) {
+        var id = $(this).attr('rel');
+        var delete_func = $(this).attr('rel1');
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this coupon!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                window.location.href = "/admin/" + delete_func + "/" + id;
+            } else {
+                swal("This coupon is safe!");
+            }
+        });
+    });
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 	
 	$('select').select2();

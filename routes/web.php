@@ -46,6 +46,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'], '/admin/add-attributes/{id}', 'ProductController@addAttributes');
     Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
     Route::match(['get', 'post'], '/admin/edit-attributes/{id}', 'ProductController@editAttributes');
+
+//    Coupon
+    Route::match(['get', 'post'], '/admin/add-coupon', 'CouponController@addCoupon');
+    Route::get('/admin/view-coupons', 'CouponController@viewCoupons');
+    Route::match(['get', 'post'], '/admin/edit-coupon/{id}', 'CouponController@editCoupon');
+    Route::get('/admin/delete-coupon/{id}', 'CouponController@deleteCoupon');
 });
 
 //Front Route
@@ -60,6 +66,8 @@ Route::match(['get', 'post'], '/add-cart', 'ProductController@addCart');
 Route::match(['get', 'post'], '/cart', 'ProductController@showCart');
 Route::get('/cart/delete-product/{id}', 'ProductController@deleteCartProduct');
 Route::get('/cart/update-quantity/{id}/{quantity}', 'ProductController@updateCartQuantity');
+//coupon
+Route::post('/cart/apply-coupon', 'ProductController@applyCoupon');
 
 Auth::routes();
 
